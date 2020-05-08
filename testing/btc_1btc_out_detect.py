@@ -27,9 +27,9 @@ def get_full_block(height): # method that accepts (height) as a parameter that a
         if t in tx_values: # comopares every transaction extracted from the block to transaction we are interested in - tx_values list
             r_tx.append(height) # if transaction matches it appends current block height to r_tx list, '.8f' - converts scientific notation to decimal numbers
             #break # exits the loop as if we found transaction in a block once there is no need to keep loking for others, we just write down block height we are interested in
-    r_tx = set(r_tx) # converting to set instead of list to avoid duplicates
-    print(r_tx) # shows to the users all transaction that match tx_values list
+    r_tx = set(r_tx) # converting list to set instead of list to avoid duplicates
     r_tx = str(r_tx) # converting tuple into a string so we can write it to file
+    print(r_tx[1:7]) # shows to the users all transaction that match tx_values list
     f.write("\n"+r_tx[1:7]) # writes new block hight into a blocks_with_1btc_output.txt file
     f.close() #closes the file we were writing to
 
@@ -44,7 +44,6 @@ def listen_for_new_blocks():#method that listens for new blocks all the time
 
 while True: # main loop where program runns all the time
     latest_block = listen_for_new_blocks() # initialies listen_for_new_blocks() method allowing to received notification about newly mined blocks
-    print("\n") # inserts new line to keep data apart
     time.sleep(60) # keeps loop controlled - after receiving new block it will wait for 60 seconds before waiting a new one
 
 

@@ -7,8 +7,7 @@ import time, json, requests, telebot #importing necessary libraries
 # telebot library will be used to control telegram bot behaviour
 from websocket import create_connection # websocket library will be used for server connection to receive notifications for a new block
 
-tx_values= [0.00000555,0.00000777,0.00000666,0.00008888,0.00000667,0.0000505,0.00000776,0.00000547,
-0.00001,0.00002019,0.00002020,0.00050505,0.000033,0.000297,0.000158,0.00000826,0.00000549] # transaction value we are monitoring
+tx_values= [0.00000555,0.00000777,0.00000666,0.00008888,0.00000667,0.00002019,0.00002020] # transaction value we are monitoring
 
 srv = "wss://ws.blockchain.info/inv" #Blockchain.info server - will be used to receive notifications when new bitcoin block is mined (https://www.blockchain.com/api/api_websocket)
 ws = create_connection(srv) #creates connection with Blockchain.info server
@@ -29,7 +28,7 @@ def get_full_block(height): # method that accepts (height) as a parameter that a
     for t in tx: #for loop that goes through every transaction previously extracted from the block
         if t in tx_values: # compares every transaction extracted from the block to transaction we are interested in - tx_values list
             r_tx.append(format(t, '.8f')) #if transaction matches it  appends value we are interested in to r_tx list, '.8f' - converts scientific notation to decimal numbers
-    r_tx = set(r_tx) # converting to set instead of list to avoid duplicates
+    r_tx = set(r_tx) # converting list to set instead of list to avoid duplicates
     print(r_tx) #shows to the users all transaction that match tx_values list
     if len(r_tx) > 0: # acts a s filter if we found any values in current block from tx_values only in that case bot sends message to telegram chat
         bot.send_message(-311298975,str(r_tx)) #sends transaction to Telegram chat (-311298975 - is chat id where messages need to be sent to)
