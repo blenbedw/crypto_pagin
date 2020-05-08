@@ -1,2 +1,3 @@
-# crypto_pagin
-Bitcoin paging (Live block analysis)
+# crypto_paging
+
+To install all required packages - "pip install -r requirements.txt"
